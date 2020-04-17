@@ -70,7 +70,7 @@ def get_account_names(account_ids):
     account_names = {}
 
     for id in account_ids:
-        name = boto3.client('organizations').describe_account(AccountId=id).get('Account').get('Name')
+        name = session.client('organizations').describe_account(AccountId=id).get('Account').get('Name')
         account_names[id] = name
 
     return account_names    
