@@ -59,16 +59,26 @@ def get_disallowed_services(services_used, allowed_services):
 
     return disallowed_services_by_account
 
-def print_disallowed_services(disallowed_services_by_account):
-    print('\t'.join(['LinkedAccount', 'Service']))
+def print_disallowed_services(disallowed_services_by_account, account_names):
+    print('\t'.join(['AccountName', 'LinkedAccount', 'Service']))
 
     for account, services in disallowed_services_by_account.items():
         for service in services:
-            print(f"{account}\t{service}")
+            print(f"{account_names[account]}\t{account}\t{service}")
+
+def get_account_names(account_ids):
+    account_names = {}
+
+    for id in account_ids:
+        name = boto3.client('organizations').describe_account(AccountId=id).get('Account').get('Name')
+        account_names[id] = name
+
+    return account_names    
 
 def main():
     services_used = get_services_used_by_account(days_back)
     disallowed_services = get_disallowed_services(services_used, allowed_services)
-    print_disallowed_services(disallowed_services)
+    account_names = get_account_names(disallowed_services.keys())
+    print_disallowed_services(disallowed_services, account_names)
 
 main()
