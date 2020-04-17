@@ -4,15 +4,15 @@ Simple script to compare services used against an allow list from Cost Explorer 
 Usage:
 ```python
 pip3 install boto3
-python services-disallowed.py >> results.tsv
+python services-disallowed.py > results.tsv
 ```
 
 Example output:
-LinkedAccount | Service
---- | ---
-012345678901	| AmazonCloudWatch
-012345678901	| AWS Step Functions
-012345678901	| Amazon EC2 Container Service
-567890123456	| AWS Key Management Service
-567890123456	| Amazon GuardDuty
-567890123456	| Amazon Kinesis
+AccountName | LinkedAccount | Service
+--- | --- | ---
+Account1 | 012345678901	| AmazonCloudWatch
+Account1 | 012345678901	| AWS Step Functions
+Account1 | 012345678901	| Amazon EC2 Container Service
+Account2 | 567890123456	| AWS Key Management Service
+Account2 | 567890123456	| Amazon GuardDuty
+Account2 | 567890123456	| Amazon Kinesis
